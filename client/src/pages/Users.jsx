@@ -1,6 +1,11 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
 import UserCard from '../Components/UserCard'
 import Spinner from '../Components/Spinner'
+import { getUsers } from '../api/users'
+
+function loader({ request: { signal } }) {
+  return getUsers({ signal })
+}
 
 const Users = () => {
   const users = useLoaderData()
@@ -31,4 +36,7 @@ const Users = () => {
   )
 }
 
-export default Users
+export const usersRoute = {
+  loader,
+  element: <Users />,
+}

@@ -1,12 +1,10 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
-import axios from 'axios'
 import PostCard from '../Components/PostCard'
 import Spinner from '../Components/Spinner'
+import { getPosts } from '../api/posts'
 
 function loader({ request: { signal } }) {
-  return axios
-    .get('http://localhost:3000/posts', { signal })
-    .then((res) => res.data)
+  return getPosts({ signal })
 }
 
 function Posts() {
@@ -36,7 +34,7 @@ function Posts() {
   )
 }
 
-export const postListRoute = {
+export const postsRoute = {
   loader,
   element: <Posts />,
 }

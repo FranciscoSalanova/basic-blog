@@ -1,5 +1,10 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
 import Spinner from '../Components/Spinner'
+import { getTodos } from '../api/todos'
+
+function loader({ request: { signal } }) {
+  return getTodos({ signal })
+}
 
 const Todos = () => {
   const todos = useLoaderData()
@@ -30,4 +35,7 @@ const Todos = () => {
   )
 }
 
-export default Todos
+export const todosRoute = {
+  loader,
+  element: <Todos />,
+}

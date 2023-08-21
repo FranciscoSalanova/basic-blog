@@ -1,4 +1,16 @@
-import { useLoaderData } from 'react-router-dom'
+import { redirect, useLoaderData } from 'react-router-dom'
+import { baseApi } from '../api/base'
+
+function loader({ params, request: { signal } }) {
+  return baseApi
+    .get(`users/${params.userId}`, {
+      signal,
+    })
+    .then((res) => {
+      if (res.status === 200) return res.data
+      throw redirect('users')
+    })
+}
 
 const User = () => {
   const user = useLoaderData()
@@ -132,4 +144,7 @@ const User = () => {
   )
 }
 
-export default User
+export const userRoute = {
+  loader,
+  element: <User />,
+}

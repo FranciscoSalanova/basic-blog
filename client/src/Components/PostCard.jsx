@@ -8,7 +8,7 @@ const PostCard = ({ title, body, postId }) => {
         <div className="card-preview-text">{body}</div>
       </div>
       <div className="card-footer">
-        <Link to={`/posts/${postId}`} className="btn">
+        <Link to={postId.toString()} className="btn">
           View
         </Link>
       </div>

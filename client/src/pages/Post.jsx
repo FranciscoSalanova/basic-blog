@@ -1,14 +1,14 @@
-import axios from 'axios'
 import { redirect, useLoaderData } from 'react-router-dom'
+import { baseApi } from '../api/base'
 
 function loader({ params, request: { signal } }) {
-  return axios
-    .get(`http://localhost:3000/posts/${params.postId}`, {
+  return baseApi
+    .get(`posts/${params.postId}`, {
       signal,
     })
     .then((res) => {
       if (res.status === 200) return res.data
-      throw redirect('/posts')
+      throw redirect('posts')
     })
 }
 

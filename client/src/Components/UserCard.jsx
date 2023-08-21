@@ -14,7 +14,7 @@ const UserCard = ({ name, email, website, company, userId }) => {
         </div>
       </div>
       <div className="card-footer">
-        <Link to={`/users/${userId}`} className="btn">
+        <Link to={userId.toString()} className="btn">
           View
         </Link>
       </div>

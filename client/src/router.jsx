@@ -1,11 +1,11 @@
-import { createBrowserRouter, redirect } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import NavLayout from './Components/NavLayout.jsx'
-import { postListRoute } from './pages/Posts.jsx'
-import Users from './pages/Users.jsx'
-import Todos from './pages/Todos.jsx'
 import Home from './pages/Home.jsx'
+import { postsRoute } from './pages/Posts.jsx'
 import { postRoute } from './pages/Post.jsx'
-import User from './pages/User.jsx'
+import { usersRoute } from './pages/Users.jsx'
+import { userRoute } from './pages/User.jsx'
+import { todosRoute } from './pages/Todos.jsx'
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            ...postListRoute,
+            ...postsRoute,
           },
           {
             path: ':postId',
@@ -31,22 +31,11 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Users />,
-            loader: ({ request: { signal } }) => {
-              return fetch('http://localhost:3000/users', { signal })
-            },
+            ...usersRoute,
           },
           {
             path: ':userId',
-            element: <User />,
-            loader: ({ params, request: { signal } }) => {
-              return fetch(`http://localhost:3000/users/${params.userId}`, {
-                signal,
-              }).then((res) => {
-                if (res.status === 200) return res.json()
-                throw redirect('/users')
-              })
-            },
+            ...userRoute,
           },
         ],
       },
@@ -55,10 +44,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Todos />,
-            loader: ({ request: { signal } }) => {
-              return fetch('http://localhost:3000/todos', { signal })
-            },
+            ...todosRoute,
           },
         ],
       },
