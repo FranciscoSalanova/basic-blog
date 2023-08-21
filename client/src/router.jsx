@@ -4,11 +4,12 @@ import { pages } from './pages/index.js'
 
 export const router = createBrowserRouter([
   {
+    path: '/',
     element: <NavLayout />,
     children: [
-      { path: '/', element: <pages.Home /> },
+      { index: true, element: <pages.Home /> },
       {
-        path: '/posts',
+        path: 'posts',
         children: [
           {
             index: true,
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: '/users',
+        path: 'users',
         children: [
           {
             index: true,
@@ -56,7 +57,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: '/todos',
+        path: 'todos',
         children: [
           {
             index: true,
