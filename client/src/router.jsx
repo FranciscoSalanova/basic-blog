@@ -55,7 +55,18 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      { path: '/todos', element: <pages.Todos /> },
+      {
+        path: '/todos',
+        children: [
+          {
+            index: true,
+            element: <pages.Todos />,
+            loader: ({ request: { signal } }) => {
+              return fetch('http://localhost:3000/todos', { signal })
+            },
+          },
+        ],
+      },
     ],
   },
 ])
