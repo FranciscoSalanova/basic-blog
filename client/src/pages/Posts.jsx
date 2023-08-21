@@ -1,5 +1,6 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
 import PostCard from '../Components/PostCard'
+import Spinner from '../Components/Spinner'
 
 const Posts = () => {
   const posts = useLoaderData()
@@ -10,7 +11,7 @@ const Posts = () => {
       <h1 className="page-title">Posts</h1>
       <div className="card-grid">
         {state === 'loading' ? (
-          <h1>Loading...</h1>
+          <Spinner />
         ) : (
           posts.map((post) => {
             return (

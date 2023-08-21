@@ -1,4 +1,5 @@
 import { useLoaderData, useNavigation } from 'react-router-dom'
+import Spinner from '../Components/Spinner'
 
 const Todos = () => {
   const todos = useLoaderData()
@@ -10,7 +11,7 @@ const Todos = () => {
         <h1 className="page-title">Todos</h1>
         <ul>
           {state === 'loading' ? (
-            <h1>Loading...</h1>
+            <Spinner />
           ) : (
             todos.map((todo) => {
               return (
