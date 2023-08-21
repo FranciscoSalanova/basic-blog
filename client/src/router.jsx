@@ -1,34 +1,28 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 import NavLayout from './Components/NavLayout.jsx'
-import { pages } from './pages/index.js'
+import { postListRoute } from './pages/Posts.jsx'
+import Users from './pages/Users.jsx'
+import Todos from './pages/Todos.jsx'
+import Home from './pages/Home.jsx'
+import { postRoute } from './pages/Post.jsx'
+import User from './pages/User.jsx'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <NavLayout />,
     children: [
-      { index: true, element: <pages.Home /> },
+      { index: true, element: <Home /> },
       {
         path: 'posts',
         children: [
           {
             index: true,
-            element: <pages.Posts />,
-            loader: ({ request: { signal } }) => {
-              return fetch('http://localhost:3000/posts', { signal })
-            },
+            ...postListRoute,
           },
           {
             path: ':postId',
-            element: <pages.Post />,
-            loader: ({ params, request: { signal } }) => {
-              return fetch(`http://localhost:3000/posts/${params.postId}`, {
-                signal,
-              }).then((res) => {
-                if (res.status === 200) return res.json()
-                throw redirect('/posts')
-              })
-            },
+            ...postRoute,
           },
         ],
       },
@@ -37,14 +31,14 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <pages.Users />,
+            element: <Users />,
             loader: ({ request: { signal } }) => {
               return fetch('http://localhost:3000/users', { signal })
             },
           },
           {
             path: ':userId',
-            element: <pages.User />,
+            element: <User />,
             loader: ({ params, request: { signal } }) => {
               return fetch(`http://localhost:3000/users/${params.userId}`, {
                 signal,
@@ -61,7 +55,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <pages.Todos />,
+            element: <Todos />,
             loader: ({ request: { signal } }) => {
               return fetch('http://localhost:3000/todos', { signal })
             },

@@ -1,4 +1,16 @@
-import { useLoaderData } from 'react-router-dom'
+import axios from 'axios'
+import { redirect, useLoaderData } from 'react-router-dom'
+
+function loader({ params, request: { signal } }) {
+  return axios
+    .get(`http://localhost:3000/posts/${params.postId}`, {
+      signal,
+    })
+    .then((res) => {
+      if (res.status === 200) return res.data
+      throw redirect('/posts')
+    })
+}
 
 const Post = () => {
   const post = useLoaderData()
@@ -57,4 +69,7 @@ const Post = () => {
   )
 }
 
-export default Post
+export const postRoute = {
+  loader,
+  element: <Post />,
+}
