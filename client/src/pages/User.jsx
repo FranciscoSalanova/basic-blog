@@ -1,22 +1,15 @@
-import { redirect, useLoaderData } from 'react-router-dom'
-import { baseApi } from '../api/base'
+import { useLoaderData } from 'react-router-dom'
+import { getUser } from '../api/users'
 
 function loader({ params, request: { signal } }) {
-  return baseApi
-    .get(`users/${params.userId}`, {
-      signal,
-    })
-    .then((res) => {
-      if (res.status === 200) return res.data
-      throw redirect('users')
-    })
+  return getUser(params.userId, { signal })
 }
 
 const User = () => {
   const user = useLoaderData()
 
   return (
-    <div className="container">
+    <>
       <h1 className="page-title">{user.name}</h1>
       <div className="page-subtitle">{user.email}</div>
       <div>
@@ -140,7 +133,7 @@ const User = () => {
         <li>illo expedita consequatur quia in</li>
         <li className="strike-through">quo adipisci enim quam ut ab</li>
       </ul>
-    </div>
+    </>
   )
 }
 

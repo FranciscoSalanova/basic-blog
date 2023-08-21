@@ -1,22 +1,15 @@
-import { redirect, useLoaderData } from 'react-router-dom'
-import { baseApi } from '../api/base'
+import { useLoaderData } from 'react-router-dom'
+import { getPost } from '../api/posts'
 
 function loader({ params, request: { signal } }) {
-  return baseApi
-    .get(`posts/${params.postId}`, {
-      signal,
-    })
-    .then((res) => {
-      if (res.status === 200) return res.data
-      throw redirect('posts')
-    })
+  return getPost(params.postId, { signal })
 }
 
 const Post = () => {
   const post = useLoaderData()
 
   return (
-    <div className="container">
+    <>
       <h1 className="page-title">{post.title}</h1>
       <span className="page-subtitle">
         By: <a href="user.html">Leanne Graham</a>
@@ -65,7 +58,7 @@ const Post = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -6,6 +6,7 @@ import { postRoute } from './pages/Post.jsx'
 import { usersRoute } from './pages/Users.jsx'
 import { userRoute } from './pages/User.jsx'
 import { todosRoute } from './pages/Todos.jsx'
+import FileNotFound from './pages/FileNotFound.jsx'
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      { path: '*', element: <FileNotFound /> },
     ],
   },
 ])
