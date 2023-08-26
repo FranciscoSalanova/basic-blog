@@ -13,43 +13,48 @@ export const router = createBrowserRouter([
     path: '/',
     element: <NavLayout />,
     children: [
-      { index: true, element: <Home /> },
       {
-        path: 'posts',
+        errorElement: <FileNotFound />,
         children: [
+          { index: true, element: <Home /> },
           {
-            index: true,
-            ...postsRoute,
+            path: 'posts',
+            children: [
+              {
+                index: true,
+                ...postsRoute,
+              },
+              {
+                path: ':postId',
+                ...postRoute,
+              },
+            ],
           },
           {
-            path: ':postId',
-            ...postRoute,
+            path: 'users',
+            children: [
+              {
+                index: true,
+                ...usersRoute,
+              },
+              {
+                path: ':userId',
+                ...userRoute,
+              },
+            ],
           },
+          {
+            path: 'todos',
+            children: [
+              {
+                index: true,
+                ...todosRoute,
+              },
+            ],
+          },
+          { path: '*', element: <FileNotFound /> },
         ],
       },
-      {
-        path: 'users',
-        children: [
-          {
-            index: true,
-            ...usersRoute,
-          },
-          {
-            path: ':userId',
-            ...userRoute,
-          },
-        ],
-      },
-      {
-        path: 'todos',
-        children: [
-          {
-            index: true,
-            ...todosRoute,
-          },
-        ],
-      },
-      { path: '*', element: <FileNotFound /> },
     ],
   },
 ])
