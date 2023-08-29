@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useMatch } from 'react-router-dom'
 
-const PostCard = ({ title, body, postId }) => {
+const PostCard = ({ title, body, id }) => {
+  const match = useMatch('posts')
+
   return (
     <div className="card">
       <div className="card-header">{title}</div>
@@ -8,7 +10,7 @@ const PostCard = ({ title, body, postId }) => {
         <div className="card-preview-text">{body}</div>
       </div>
       <div className="card-footer">
-        <Link to={postId.toString()} className="btn">
+        <Link to={match ? `${id}` : `../../posts/${id}`} className="btn">
           View
         </Link>
       </div>

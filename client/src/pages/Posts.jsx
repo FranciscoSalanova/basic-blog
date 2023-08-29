@@ -14,14 +14,7 @@ function Posts() {
       <h1 className="page-title">Posts</h1>
       <div className="card-grid">
         {posts.map((post) => {
-          return (
-            <PostCard
-              title={post.title}
-              body={post.body}
-              postId={post.id}
-              key={post.id}
-            />
-          )
+          return <PostCard key={post.id} {...post} />
         })}
       </div>
     </>
