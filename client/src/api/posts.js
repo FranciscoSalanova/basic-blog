@@ -12,7 +12,3 @@ export function getPost(postId, options) {
     throw redirect('posts')
   })
 }
-
-export function getPostsOfUser(userId, options) {
-  return baseApi.get(`posts?userId=${userId}`, options).then((res) => res.data)
-}

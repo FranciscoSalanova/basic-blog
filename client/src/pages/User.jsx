@@ -1,14 +1,14 @@
 import { useLoaderData } from 'react-router-dom'
 import { getUser } from '../api/users'
-import { getPostsOfUser } from '../api/posts'
-import { getTodosOfUser } from '../api/todos'
+import { getPosts } from '../api/posts'
+import { getTodos } from '../api/todos'
 import PostCard from '../Components/PostCard'
 import TodoItem from '../Components/TodoItem'
 
 async function loader({ params: { userId }, request: { signal } }) {
   const user = getUser(userId, { signal })
-  const posts = getPostsOfUser(userId, { signal })
-  const todos = getTodosOfUser(userId, { signal })
+  const posts = getPosts({ params: { userId }, signal })
+  const todos = getTodos({ params: { userId }, signal })
 
   return { user: await user, posts: await posts, todos: await todos }
 }
